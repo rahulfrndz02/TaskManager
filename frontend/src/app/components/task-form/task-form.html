@@ -1,0 +1,26 @@
+<section class="form-container">
+  <h2>Add Task</h2>
+
+  @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+  }
+
+  <form (ngSubmit)="saveTask()">
+    <label>
+      Title
+      <input name="title" [(ngModel)]="task.title" required />
+    </label>
+
+    <label>
+      Description
+      <textarea name="description" [(ngModel)]="task.description" rows="4"></textarea>
+    </label>
+
+    <div class="form-actions">
+      <a routerLink="/">Cancel</a>
+      <button type="submit" [disabled]="submitting">
+        {{ submitting ? 'Saving...' : 'Save Task' }}
+      </button>
+    </div>
+  </form>
+</section>

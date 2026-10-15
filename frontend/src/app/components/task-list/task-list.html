@@ -1,0 +1,41 @@
+<section class="container">
+  <div class="page-heading">
+    <div>
+      <h2>My Tasks</h2>
+      <p>Organize your work and track task progress.</p>
+    </div>
+    <a routerLink="/add" class="btn btn-primary">Add Task</a>
+  </div>
+
+  @if (loading) {
+    <p>Loading tasks...</p>
+  }
+
+  @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+  }
+
+  @if (!loading && !errorMessage && tasks.length === 0) {
+    <p>No tasks yet. Add your first task to get started.</p>
+  }
+
+  @if (!loading && tasks.length > 0) {
+    <ul class="task-list">
+      @for (task of tasks; track task.id) {
+        <li class="task-card">
+          <div>
+            <h3 [class.completed]="task.completed">{{ task.title }}</h3>
+            <p>{{ task.description }}</p>
+            <p>Status: {{ task.completed ? 'Completed' : 'Pending' }}</p>
+          </div>
+          <div class="actions">
+            <button type="button" (click)="toggleCompleted(task)">
+              {{ task.completed ? 'Mark pending' : 'Mark complete' }}
+            </button>
+            <button type="button" class="danger" (click)="deleteTask(task)">Delete</button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</section>
